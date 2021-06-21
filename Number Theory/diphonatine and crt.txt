@@ -1,0 +1,258 @@
+#define int int64_t
+/*
+	* Description :- file:///C:/Users/Deepkamal%20singh/Desktop/cp/acl/document_en/math.html
+	* Source :- Atcoder library, https://codeforces.com/contest/1500/submission/109845439
+	* Verification :- https://open.kattis.com/submissions/7062053
+*/
+int safe_mod(int x, int m) {
+  x %= m;
+  if (x < 0) x += m;
+  return x;
+}
+// @param b `1 <= b`
+// @return pair(g, x) s.t. g = gcd(a, b), xa = g (mod b), 0 <= x < b/g
+pair<int, int> inv_gcd(int a, int b) {
+  a = safe_mod(a, b);
+  if (a == 0) return {b, 0};
+
+  // Contracts:
+  // [1] s - m0 * a = 0 (mod b)
+  // [2] t - m1 * a = 0 (mod b)
+  // [3] s * |m1| + t * |m0| <= b
+  int s = b, t = a;
+  int m0 = 0, m1 = 1;
+    
+  while (t) {
+  	int u = s / t;
+    s -= t * u;
+    m0 -= m1 * u;  // |m1 * u| <= |m1| * s <= b
+
+    // [3]:
+    // (s - t * u) * |m1| + t * |m0 - m1 * u|
+    // <= s * |m1| - t * u * |m1| + t * (|m0| + |m1| * u)
+    // = s * |m1| + t * |m0| <= b
+
+    auto tmp = s;
+    s = t;
+    t = tmp;
+    tmp = m0;
+    m0 = m1;
+    m1 = tmp;
+  }
+  // by [3]: |m0| <= b/g
+  // by g != b: |m0| < b/g
+  if (m0 < 0) m0 += b / s;
+  return {s, m0};
+}
+int inv_mod(int x, int m) {
+  assert(1 <= m);
+  auto z = inv_gcd(x, m);
+  assert(z.first == 1);
+  return z.second;
+}
+
+int gcd(int a, int b, int& x, int& y) {
+  if(b == 0){
+  	x=1,y=0;
+    return a;
+  }
+  int x1, y1;
+  int d = gcd(b, a % b, x1, y1);
+  x = y1;
+  y = x1 - y1 * (a / b);
+  return d;
+}
+bool find_any_solution(int a, int b, int c, int &x0, int &y0) {
+  int g = gcd(abs(a), abs(b), x0, y0);
+  if((c%g))	return false;
+  x0 *= c/g;
+  y0 *= c/g;
+  if(a<0) x0=(-x0);
+  if(b<0) y0=(-y0);
+  return true;
+}
+
+
+template<typename T>
+T extgcd(T a, T b, T &x, T &y) {
+  if (a == 0) {
+    x = 0;
+    y = 1;
+    return b;
+  }
+  T p = b / a;
+  T g = extgcd(b - p * a, a, y, x);
+  x -= p * y;
+  return g;
+}
+ 
+template<typename T>
+bool diophantine(T a, T b, T c, T &x, T &y, T &g) {
+  if (a == 0 && b == 0) {
+    if (c == 0) {
+      x = y = g = 0;
+      return true;
+    }
+    return false;
+  }
+  if (a == 0) {
+    if (c % b == 0) {
+      x = 0;
+      y = c / b;
+      g = abs(b);
+      return true;
+    }
+    return false;
+  }
+  if (b == 0) {
+    if (c % a == 0) {
+      x = c / a;
+      y = 0;
+      g = abs(a);
+      return true;
+    }
+    return false;
+  }
+  g = extgcd(a, b, x, y);
+  if (c % g != 0) {
+    return false;
+  }
+  T dx = c / a;
+  c -= dx * a;
+  T dy = c / b;
+  c -= dy * b;
+  //x = dx + (T) ((__int128) x * (c / g) % b);
+  x = dx + (T) ( x * (c / g) % b);
+  //y = dy + (T) ((__int128) y * (c / g) % a);
+  y = dy + (T) ( y * (c / g) % a);
+  g = abs(g);
+  return true;
+  // |x|, |y| <= max(|a|, |b|, |c|) [tested]
+}
+
+bool crt(int k1, int m1, int k2, int m2, int &k, int &m) {
+  k1 %= m1;
+  if (k1 < 0) k1 += m1;
+  k2 %= m2;
+  if (k2 < 0) k2 += m2;
+  int x, y, g;
+  if (!diophantine(m1, -m2, k2 - k1, x, y, g)) {
+    return false;
+  }
+  int dx = m2 / g;
+  int delta = x / dx - (x % dx < 0);
+  k = m1 * (x - dx * delta) + k1;
+  m = m1 / g * m2;
+  assert(0 <= k && k < m);
+  return true;
+}
+/*
+
+// (rem, mod)
+std::pair<int, int> crt(const std::vector<int>& r,
+                                    const std::vector<int>& m) {
+    assert(r.size() == m.size());
+    int n = int(r.size());
+    // Contracts: 0 <= r0 < m0
+    int r0 = 0, m0 = 1;
+    for (int i = 0; i < n; i++) {
+        assert(1 <= m[i]);
+        int r1 = safe_mod(r[i], m[i]), m1 = m[i];
+        if (m0 < m1) {
+            std::swap(r0, r1);
+            std::swap(m0, m1);
+        }
+        if (m0 % m1 == 0) {
+            if (r0 % m1 != r1) return {0, 0};
+            continue;
+        }
+        // assume: m0 > m1, lcm(m0, m1) >= 2 * max(m0, m1)
+
+        // (r0, m0), (r1, m1) -> (r2, m2 = lcm(m0, m1));
+        // r2 % m0 = r0
+        // r2 % m1 = r1
+        // -> (r0 + x*m0) % m1 = r1
+        // -> x*u0*g % (u1*g) = (r1 - r0) (u0*g = m0, u1*g = m1)
+        // -> x = (r1 - r0) / g * inv(u0) (mod u1)
+
+        // im = inv(u0) (mod u1) (0 <= im < u1)
+        int g, im;
+        std::tie(g, im) = inv_gcd(m0, m1);
+
+        int u1 = (m1 / g);
+        // |r1 - r0| < (m0 + m1) <= lcm(m0, m1)
+        if ((r1 - r0) % g) return {0, 0};
+
+        // u1 * u1 <= m1 * m1 / g / g <= m0 * m1 / g = lcm(m0, m1)
+        int x = (r1 - r0) / g % u1 * im % u1;
+
+        // |r0| + |m0 * x|
+        // < m0 + m0 * (u1 - 1)
+        // = m0 + m0 * m1 / g - m0
+        // = lcm(m0, m1)
+        r0 += x * m0;
+        m0 *= u1;  // -> lcm(m0, m1)
+        if (r0 < 0) r0 += m0;
+    }
+    return {r0, m0};
+}
+
+
+*/
+int floor_sum(int n, int m, int a, int b) {
+	int ans = 0;
+  if (a >= m) {
+  	ans += (n - 1) * n * (a / m) / 2;
+    a %= m;
+  }
+  if (b >= m) {
+  	ans += n * (b / m);
+    b %= m;
+  }
+
+  int y_max = (a * n + b) / m, x_max = (y_max * m - b);
+  if (y_max == 0) return ans;
+  ans += (n - (x_max + a - 1) / a) * y_max;
+  ans += floor_sum(y_max, a, m, (a - x_max % a) % a);
+  return ans;
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+trash :-
+
+/*
+int gcd(int a, int b, int& x, int& y) {
+    if(b == 0){
+        x=1,y=0;
+        return a;
+    }
+    int x1, y1;
+    int d = gcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (a / b);
+    return d;
+}
+bool find_any_solution(int a, int b, int c, int &x0, int &y0) {
+    int g = gcd(abs(a), abs(b), x0, y0);
+    if((c%g))	return false;
+    x0 *= c/g;
+    y0 *= c/g;
+    if(a<0) x0=(-x0);
+    if(b<0) y0=(-y0);
+    return true;
+}
+*/
+
+/*
+//source :- https://codeforces.com/contest/622/submission/74009515 
+int mod_inv(int a, int m = MOD) {
+	// https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Example
+	assert(__gcd(a,m) == 1);
+  int g = m, r = a, x = 0, y = 1;
+ 	while (r != 0) {
+  	int q = g / r;
+    g %= r; swap(g, r);
+    x -= q * y; swap(x, y);
+  }
+ 	return x < 0 ? x + m : x;
+}
+*/

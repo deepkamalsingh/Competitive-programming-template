@@ -1,0 +1,2 @@
+auto cmp = [](state a,state b) { return a.total < b.total; };
+	PQ<state,vt<state>, decltype(cmp)> q(cmp);

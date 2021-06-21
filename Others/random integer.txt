@@ -1,0 +1,6 @@
+//source :- https://codeforces.com/blog/entry/61587
+#define rand __rand
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+int rand(int L = 0,int R = int(1e9)){
+  return uniform_int_distribution<int>(L,R)(rng) ;
+}

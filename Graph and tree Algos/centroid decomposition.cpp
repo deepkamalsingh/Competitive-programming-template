@@ -4,7 +4,7 @@
 	*	Source :-	https://codeforces.com/contest/342/submission/99292600
 	* verification :- https://codeforces.com/contest/342/submission/119596899
 */
-
+	
 #ifdef int
 	#undef int
 #endif
@@ -25,7 +25,7 @@ struct custom_hash { /// use most bits rather than just the lowest ones
 	const uint64_t C = (long long)(2e18 * PI) + 71; // large odd number
 	const int RANDOM = rng();
 	long long operator()(long long x) const { /// https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
-		return __builtin_bswap64((x^RANDOM)*C); }
+	return __builtin_bswap64((x^RANDOM)*C); }
 };
 
 
@@ -43,7 +43,7 @@ struct edge {
 };
 
 struct centroid_decomposition {
-  int N;
+	int N;
   vector<vector<edge>> adj;
   vector<int> depth;
   vector<int> subtree_size;
@@ -51,7 +51,7 @@ struct centroid_decomposition {
   vector<int> centroid_parent;
   vector<int> node_list;
   // gives the distance of each node to its descendants in centroid tree.
-  vector<hash_table<int, int>> centroid_dist; // from root to node.
+	vector<hash_table<int, int>> centroid_dist; // from root to node.
 
 
   void init(int _N) {

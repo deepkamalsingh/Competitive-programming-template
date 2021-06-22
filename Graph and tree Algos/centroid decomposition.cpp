@@ -2,7 +2,7 @@
 	* Description :- Centroid decompostion of a tree.
 	* Time complexity  :- O(N log N) build.
 	*	Source :-	https://codeforces.com/contest/342/submission/99292600
-	* verification :- https://codeforces.com/contest/342/submission/119596899
+	* Verification :- https://codeforces.com/contest/342/submission/119596899
 */
 	
 #ifdef int

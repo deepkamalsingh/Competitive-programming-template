@@ -25,7 +25,7 @@ struct _m_int {
     }
     return x < 0 ? x + m : x;
   }
-   // wont work if we use #define int int64_t
+  // wont work if we use #define int int64_t
   // explicit operator int() const { return val; }
   explicit operator int64_t() const { return val; }
 
@@ -79,7 +79,7 @@ struct _m_int {
     return *this;
   }
 
-   // wont work if we use #define int int64_t
+  // wont work if we use #define int int64_t
   // _m_int operator++(int) { _m_int before = *this; ++*this; return before; }
   // _m_int operator--(int) { _m_int before = *this; --*this; return before; }
 
@@ -123,13 +123,13 @@ void prepare_factorials(int maximum) {
 
   inv = {0, 1};
   factorial = inv_factorial = {1, 1};
-   sub_factorial = {1, 0};
+  sub_factorial = {1, 0};
 
   maximum = max(maximum, 1);
   inv.resize(maximum + 1);
   factorial.resize(maximum + 1);
   inv_factorial.resize(maximum + 1);
-   sub_factorial.resize(maximum + 1);
+  sub_factorial.resize(maximum + 1);
 
   for(int i = 2; i <= maximum; i++) {
     inv[i] = inv[MOD % i] * (MOD - MOD / i);
@@ -167,7 +167,7 @@ mint stirling_second(int n, int k) {
   mint answer = 0;
   for(int x = 0; x <= k; x++){
     answer += ((k - x) % 2 == 0 ? +1 : -1) * choose(k, x) * mint(x).pow(n);
-   }
+  }
   return answer;
 }
 

@@ -6,14 +6,14 @@
 */
 
 #ifdef int
-	#undef int 
+	#undef int
 #endif
 
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
 
 #ifndef int
-	#define int int64_t 
+	#define int int64_t
 #endif
 
 
@@ -53,7 +53,7 @@ struct centroid_decomposition {
   // gives the distance of each node to its descendants in centroid tree.
   vector<hash_table<int, int>> centroid_dist; // from root to node.
 
-	
+
   void init(int _N) {
     N = _N;
     adj.assign(N, {});
@@ -62,14 +62,14 @@ struct centroid_decomposition {
     centroid_parent.assign(N, -1);
     centroid_dist.resize(N);
   }
-	
-	
+
+
   void add_edge(int u, int v) {
     assert(u != v);
     adj[u].emplace_back(v);
     adj[v].emplace_back(u);
   }
-  
+
   // Erasing edges is O(number of nodes remaining) which is fine within our decomposition.
 	void erase_edge(int from, int to) {
 		for(edge &e : adj[from]) {

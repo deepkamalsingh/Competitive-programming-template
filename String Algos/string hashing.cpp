@@ -3,7 +3,7 @@
 	* description :- polynomial hashing of strings.
 	* do not use #define int int64_t when using this.
 	* sources :- https://codeforces.com/contest/710/submission/102996468
-	* verification :- 
+	* verification :- https://codeforces.com/contest/154/submission/120344887
 */
 
 
@@ -164,6 +164,7 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count() * (random_
 // P = 2^32 - 13337 is a safe prime: both P and (P - 1) / 2 are prime.
 extern const unsigned HASH_P = unsigned(-13337); // hash prime
 using hash_int = _m_uint<HASH_P>;
+using hash_t = uint64_t;
 
 const uint64_t HASH_P2 = uint64_t(HASH_P) * HASH_P;// square of hash prime
 const int HASH_COUNT = 2;

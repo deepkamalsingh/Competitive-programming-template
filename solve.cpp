@@ -75,6 +75,7 @@ void __f(const char *names, Arg1 &&arg1, Args &&... args) {
   __f(comma+1,args...);
 }
 
+// remove this when file of input is not fixed.
 void setIO(string s = "") {
   ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0); 
   cin.exceptions(cin.failbit); 

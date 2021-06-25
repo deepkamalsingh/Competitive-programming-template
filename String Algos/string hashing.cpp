@@ -1,7 +1,6 @@
 
 /*
 	* description :- polynomial hashing of strings.
-	* do not use #define int int64_t when using this.
 	* sources :- https://codeforces.com/contest/710/submission/102996468
 	* verification :- https://codeforces.com/contest/154/submission/120344887
 */

@@ -9,7 +9,8 @@
   * verification :- https://codeforces.com/edu/course/2/lesson/5/2/practice/status
 */
 
-template<class T, class H> struct lazy_segment_tree {
+template<class T, class H> 
+struct lazy_segment_tree {
   const T ID = , NEUTRAL_ELEMENT = ;
   const H NO_OPERATION = ;
   int size ;

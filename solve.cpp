@@ -22,12 +22,12 @@ using namespace std;
 #define mem(a,b) memset(a, b, sizeof(a))
 
 template<class A> void rd(vt<A>& v);
-template<class T> void rd(T& x){ cin >> x; }
-template<class H, class... T> void rd(H& h, T&... t) { rd(h) ; rd(t...) ;}
-template<class A> void rd(vt<A>& x) { for(auto& a : x) rd(a) ;}
+template<class T> void rd(T& x){ cin >> x;}
+template<class H, class... T> void rd(H& h, T&... t) { rd(h); rd(t...);}
+template<class A> void rd(vt<A>& x) { for(auto& a : x) rd(a);}
 
-template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0; }
-template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }
+template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0;}
+template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0;}
 
 template<typename T>
 void __p(T a) {
@@ -75,9 +75,10 @@ void __f(const char *names, Arg1 &&arg1, Args &&... args) {
   __f(comma+1,args...);
 }
 
-// remove this when file of input is not fixed.
+
 void setIO(string s = "") {
   ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0); 
+  // remove this when size of input is not fixed.
   cin.exceptions(cin.failbit); 
 	cout.precision(15);	cout << fixed;
   if(SZ(s)){

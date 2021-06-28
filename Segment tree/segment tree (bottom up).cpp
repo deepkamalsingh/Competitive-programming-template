@@ -6,7 +6,8 @@
  * 0 - based indexing.
 */
 
-template<class T> struct basic_segment_tree { // comb(ID,b) = b
+template<class T> 
+struct basic_segment_tree { // comb(ID,b) = b
   const T ID =  0;
   T comb(T a, T b) {
     return a + b;

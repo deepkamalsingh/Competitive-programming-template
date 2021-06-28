@@ -23,4 +23,4 @@ template<class T>	struct compress_1d_co_ordinates {
   	return;
   }
   
-}compress;
+};

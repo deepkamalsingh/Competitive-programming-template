@@ -11,7 +11,7 @@
 
 
 #ifdef int
-	static_assert(false,"do not define int");
+	static_assert(false,"Do not define int.");
 #endif
 
 

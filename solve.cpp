@@ -12,9 +12,6 @@ using namespace std;
 #define vt vector
 #define pb push_back
 #define eb emplace_back
-#define LB lower_bound  
-#define UB upper_bound
-#define PQ priority_queue
 
 #define SZ(x) ((int)(x).size())
 #define all(a) (a).begin(),(a).end()

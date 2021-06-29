@@ -1,4 +1,5 @@
-template<class T>	struct compress_1d_co_ordinates {
+template<class T>	
+struct compress_1d_co_ordinates {
 	
 	vector<T> values;
 	

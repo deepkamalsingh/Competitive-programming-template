@@ -1,8 +1,8 @@
 /*
 	* description :- palindromic tree for a string which is genralized version of kmp for palindromes.
-	* 1-based indexing.
+	* indexing of palindromic tree starts from 1.
 	* source :- http://adilet.org/blog/palindromic-tree/.
-	* verification :-
+	* verification :- https://www.spoj.com/status/NUMOFPAL,deepkamal/
 */
 
 template<int MAX_N,int ALPHABET>

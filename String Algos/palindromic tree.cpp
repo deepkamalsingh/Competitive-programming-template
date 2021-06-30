@@ -1,12 +1,14 @@
 /*
 	* description :- palindromic tree for a string which is genralized version of kmp for palindromes.
-	* 1-based indexing of palindromic tree.
+	* 1-based indexing.
 	* source :- http://adilet.org/blog/palindromic-tree/.
-	* verification :- https://www.spoj.com/status/NUMOFPAL,deepkamal/.
+	* verification :-
 */
 
 template<int MAX_N,int ALPHABET>
 struct palindromice_tree {
+	
+	static const int INF = 1e9;
 	
 	struct node {
 		// the next node which stores c + palindrome + c
@@ -18,15 +20,15 @@ struct palindromice_tree {
   	// how many proper suffix of our palindrome are also palindrome.
   	int chain_length;
   	node(){
-  		next.fill(-1);
-  		length = chain_length = suffix_link = -1;
+  		next.fill(-INF);
+  		length = chain_length = suffix_link = -INF;
   	}
 	};
 
 	// our string
 	string s; 
 	// our palindromic tree
-	node tree[MAXN]; 
+	node tree[MAX_N]; 
 	// total number of nodes
 	int total_nodes;           
 	// maximum suffix palindrome of present string.
@@ -55,7 +57,7 @@ struct palindromice_tree {
       cur_suffix = tree[cur_suffix].suffix_link;
   	}       
   	
-  	if(tree[cur_suffix].next[c] != -1){  
+  	if(tree[cur_suffix].next[c] > 0){  
       max_suffix = tree[cur_suffix].next[c];
       return false;
   	}
@@ -87,6 +89,4 @@ struct palindromice_tree {
 	}
 
 	
-}
-
-
+};

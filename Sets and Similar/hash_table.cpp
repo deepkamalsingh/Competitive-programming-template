@@ -30,3 +30,6 @@ struct custom_hash { /// use most bits rather than just the lowest ones
 
 
 template<class K,class V> using hash_table = gp_hash_table<K,V,custom_hash>;
+template<class K,class V> V get(ht<K,V>& u, K x) {
+	auto it = u.find(x); return it == end(u) ? 0 : it->s; 
+}

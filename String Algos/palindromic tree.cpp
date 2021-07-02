@@ -6,7 +6,7 @@
 */
 
 template<int MAX_N,int ALPHABET>
-struct palindromice_tree {
+struct palindromic_tree {
 	
 	static const int INF = 1e9;
 	
@@ -34,7 +34,7 @@ struct palindromice_tree {
 	// maximum suffix palindrome of present string.
 	int max_suffix;	
 	
-	palindromice_tree() {
+	palindromic_tree() {
 		// node 1 - root with length -1, node 2 - root with length 0
     tree[1].length = -1, tree[1].suffix_link = 1, tree[1].chain_length = 0;
     tree[2].length = 0, tree[2].suffix_link = 1, tree[2].chain_length = 0;
@@ -87,6 +87,4 @@ struct palindromice_tree {
 
   	return true;
 	}
-
-	
 };

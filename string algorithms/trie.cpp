@@ -1,6 +1,6 @@
 
 /*
-	* Description :- trie structure to store multiple strings.
+	* Description :- trie structure to store multiple strings, binary trie for xor problems.
 	* Sources :- https://codeforces.com/contest/1209/submission/60549043.
 	* Verification :- https://oj.uz/submission/440624
 */

@@ -6,7 +6,8 @@
 
 
 
-template <int N> struct sieve {
+template <int N> 
+struct sieve {
 	array<int, N + 1> spf;
 	constexpr sieve() {
 		spf.fill(0);

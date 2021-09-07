@@ -7,9 +7,9 @@
 */
 
 template<class T> 
-struct basic_segment_tree { // comb(ID,b) = b
+struct basic_segment_tree { 
   const T ID =  0;
-  T comb(T a, T b) {
+  T comb(T a, T b) {// comb(ID,b) = b
     return a + b;
   }
   int n; vector<T> seg;

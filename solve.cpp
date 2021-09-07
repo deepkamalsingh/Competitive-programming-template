@@ -2,8 +2,6 @@
 using namespace std;
 
 #define int int64_t //be careful about this 
-#define endl "\n"
-#define f(i,a,b) for(int i=int(a);i<int(b);++i)
 
 #define pr pair
 #define ar array
@@ -12,6 +10,8 @@ using namespace std;
 #define vt vector
 #define pb push_back
 #define eb emplace_back
+#define lb lower_bound
+#define ub upper_bound
 
 #define SZ(x) ((int)(x).size())
 #define all(a) (a).begin(),(a).end()
@@ -23,8 +23,8 @@ template<class T> void rd(T& x){ cin >> x;}
 template<class H, class... T> void rd(H& h, T&... t) { rd(h); rd(t...);}
 template<class A> void rd(vt<A>& x) { for(auto& a : x) rd(a);}
 
-template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0;}
-template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0;}
+template<class T> bool ckmin(T& a, const T b) { return b < a ? a = b, 1 : 0;}
+template<class T> bool ckmax(T& a, const T b) { return a < b ? a = b, 1 : 0;}
 
 template<typename T>
 void __p(T a) {
@@ -85,13 +85,7 @@ void setIO(string s = "") {
 }
 
 
-/*********************************************Look Below******************************************************************/
-
-
-
-
-
-
+/*/--------------------------------------------------look below-----------------------------------------------------------------------------------/*/
 
 
 
@@ -129,12 +123,13 @@ void setIO(string s = "") {
 
 
 void solve(){
-  
+	
 }
+
 signed main(){
   setIO();
-  int T; rd(T);
-  while(T--){
+  int t; rd(t);
+  while(t--){
   	solve();
   }
 }
@@ -145,8 +140,13 @@ signed main(){
 
 
 
+// tips to avoid bugs.
 
-
+/*
+	* be careful of whats happening you dont want a continue statement to miss imp line of code.
+	* be careful when to update what since it might be needed in next segment of code.
+	* dont get stuck on one idea.
+*/
 
 
 

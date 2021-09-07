@@ -11,22 +11,22 @@
 
 template<class T, class H> 
 struct lazy_segment_tree {
-  const T ID = , NEUTRAL_ELEMENT = ;
-  const H NO_OPERATION = ;
+  const T ID = 0, NEUTRAL_ELEMENT = 0;
+  const H NO_OPERATION = 0;
   int size ;
   vector<T> segment_tree;
   vector<H> change;
 
   void apply_lazy_on_change(H &a, H b){
-
+		a += b;
   }
 
   T combiner_function(T a, T b){
-
+		return a + b;
   }
 
   void apply_lazy_on_node(T &a, H b){
-
+		a += b;
   }
 
   void propogate(int x, int lx, int rx){

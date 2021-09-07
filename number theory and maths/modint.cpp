@@ -26,7 +26,7 @@ struct _m_int {
     return x < 0 ? x + m : x;
   }
   // wont work if we use #define int int64_t
-  // explicit operator int() const { return val; }
+  explicit operator int() const { return val; }
   explicit operator int64_t() const { return val; }
 
   _m_int& operator+=(const _m_int &other) {
@@ -80,8 +80,8 @@ struct _m_int {
   }
 
   // wont work if we use #define int int64_t
-  // _m_int operator++(int) { _m_int before = *this; ++*this; return before; }
-  // _m_int operator--(int) { _m_int before = *this; --*this; return before; }
+  _m_int operator++(int) { _m_int before = *this; ++*this; return before; }
+  _m_int operator--(int) { _m_int before = *this; --*this; return before; }
 
   _m_int operator-() const {
     return val == 0 ? 0 : MOD - val;
@@ -110,8 +110,36 @@ struct _m_int {
   }
 };
 
-extern const int MOD = int(1e9) + 7;
+const int MOD = int(1e9) + 7;
 using mint = _m_int<MOD>;
+
+/*
+
+vector<mint> factorial, inv_factorial;
+ 
+void prepare_factorials(int maximum) {
+ 
+  factorial = inv_factorial = {1, 1};
+ 
+  factorial.resize(maximum + 1);
+  inv_factorial.resize(maximum + 1);
+  
+  for(int i = 2; i <= maximum; i++) {
+    factorial[i] = i * factorial[i - 1];
+  }
+  inv_factorial[maximum] = 1 / factorial[maximum];
+  for(int i = maximum - 1; i >= 0; --i){
+  	inv_factorial[i] = (i + 1) * inv_factorial[i + 1];
+  }
+}
+ 
+mint choose(int n, int r) {
+  if (r < 0 || r > n) return 0;
+  return factorial[n] * inv_factorial[r] * inv_factorial[n - r];
+}
+ 
+
+*/
 
 vector<mint> inv, factorial, inv_factorial, sub_factorial;
 
@@ -172,18 +200,22 @@ mint stirling_second(int n, int k) {
 }
 
 /*
-  sterling numbers of second kind
+  
+// sterling numbers of second kind
+  
+  
 mint S[N][K];
-f(i,0,N+1){
-    f(j,0,K+1){
-      if(i == 0 && j == 0){
-        S[i][j] = 1; continue;
-      }else if(i == 0 or j == 0){
-        S[i][j] = 0; continue;
-      }
-      S[i][j] = j * S[i-1][j] + S[i-1][j-1];
+for(int i = 0; i <= N; ++i){
+  for(int j = 0; j <= K; ++j){
+    if(i == 0 && j == 0){
+      S[i][j] = 1; 
+    }else if(i == 0 || j == 0){
+      S[i][j] = 0; 
+    }else{
+    	S[i][j] = j * S[i-1][j] + S[i-1][j-1];
     }
   }
+}
 
 
 */

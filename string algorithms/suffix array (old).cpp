@@ -9,6 +9,7 @@
  * Zero based indexing 
  * gives ans for [l, r]
  */
+ 
 template<class T> struct RMQ { // floor(log_2(x))
 	int level(int x) { 
     return 31 - __builtin_clz(x); 
@@ -36,6 +37,7 @@ template<class T> struct RMQ { // floor(log_2(x))
     return v[index(l,r)]; 
   }
 };
+
 /*Description:
 	* builds the suffix array in O(n * log n) time with lcp query in O(1) .
 	*what we get is for string s = "ababba"

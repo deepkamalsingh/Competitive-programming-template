@@ -22,7 +22,7 @@ template <class T, int N, int... Ns> struct BIT<T, N, Ns...> {
 		args) { return sum(r,args...)-sum(l-1,args...); }
 }; 
 
-template<class T, int SZ> struct BITrange {
+template<class T, int SZ> struct bit_range {
 	BIT<T,SZ> bit[2];
 	
 	void upd(int hi, T val) { 

@@ -1,37 +1,47 @@
-struct DSU {
-  public:
-    DSU(int n) : _n(n), parent_or_size(n, -1) {}
+struct disjoint_set_union {
+	int n;
+  // root node: -1 * component size
+  // otherwise: parent
+  vector<int> parent_or_size;
 
-    int merge(int a, int b) {
-      assert(0 <= a && a < _n);
-      assert(0 <= b && b < _n);
-      int x = leader(a), y = leader(b);
-      if (x == y) return x;
-      if (-parent_or_size[x] < -parent_or_size[y]) swap(x, y);
-      parent_or_size[x] += parent_or_size[y] ;
-      parent_or_size[y] = x ;
-      return x ;
-    }
+  disjoint_set_union(int _n) : n(_n), parent_or_size(_n, -1) {}
 
-    bool same(int a, int b) {
-      assert(0 <= a && a < _n);
-      assert(0 <= b && b < _n);
-      return leader(a) == leader(b);
-    }
+  int merge(int a, int b) {
+    int x = leader(a), y = leader(b);
+    if (x == y) return x;
+    if (-parent_or_size[x] < -parent_or_size[y]) swap(x, y);
+    parent_or_size[x] += parent_or_size[y] ;
+    parent_or_size[y] = x ;
+    return x ;
+  }
 
-    int leader(int a) {
-      assert(0 <= a && a < _n);
-      if (parent_or_size[a] < 0) return a;
-      return parent_or_size[a] = leader(parent_or_size[a]);
-    }
+  bool same(int a, int b) {
+    return leader(a) == leader(b);
+  }
 
-    int size(int a) {
-      assert(0 <= a && a < _n);
-      return -parent_or_size[leader(a)];
+  int leader(int a) {
+    if (parent_or_size[a] < 0) return a;
+    return parent_or_size[a] = leader(parent_or_size[a]);
+  }
+
+  int size(int a) {
+    return -parent_or_size[leader(a)];
+  }
+  
+  vector<vector<int>> groups() {
+  	vector<int> leader_buf(n), group_size(n);
+    for(int i = 0; i < n; i++) {
+	    leader_buf[i] = leader(i);
+      group_size[leader_buf[i]]++;
     }
-  private:
-    int _n;
-    // root node: -1 * component size
-    // otherwise: parent
-    vector<int> parent_or_size;
+    vector<vector<int>> result(n);
+    for(int i = 0; i < n; i++) {
+    	result[i].reserve(group_size[i]);
+    }
+    for(int i = 0; i < n; i++) {
+    	result[leader_buf[i]].push_back(i);
+    }
+    result.erase(remove_if(result.begin(), result.end(),[&](const auto& v) {return v.empty(); }),result.end());
+    return result;
+  }
 };

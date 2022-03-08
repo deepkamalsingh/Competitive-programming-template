@@ -1,4 +1,0 @@
-auto cmp = [](const pair<int,int> &a,const pair<int,int> &b) { 
-    return  
-  };
-  set<pair<int,int>, decltype(cmp)> s(cmp);
